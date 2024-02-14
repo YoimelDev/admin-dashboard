@@ -22,7 +22,7 @@ const numberOfAlerts = ref(JSON.parse(localStorage.getItem('alertCount') || '0')
 
 const menu = [
     {
-        href: "/dashboard",
+        href: "/examples",
         title: "Ejemplo",
         icon: {
             element: 'span',
