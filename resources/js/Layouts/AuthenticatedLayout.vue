@@ -40,19 +40,7 @@ const onToggleCollapse = (collapsed) => {
     localStorage.setItem('collapse', JSON.stringify(collapsed));
 };
 
-const getAlertCount = async () => {
-  const response = await fetch(route('alerts.getAlertCount'));
-  const data = await response.json();
-
-  const storedAlertCount = localStorage.getItem('alertCount');
-  if (storedAlertCount !== data) {
-    localStorage.setItem('alertCount', data);
-    numberOfAlerts.value = data;
-  }
-};
-
 onMounted(() => {
-    getAlertCount();
     const collapseFromStorage = localStorage.getItem('collapse');
     if (collapseFromStorage) {
         collapse.value = JSON.parse(collapseFromStorage);
@@ -75,7 +63,7 @@ onMounted(() => {
                     <div class="flex">
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
-                            <Link :href="route('dashboard')">
+                            <Link :href="route('examples')">
                                 <ApplicationLogo
                                     class="block h-9 w-auto fill-current text-gray-800"
                                 />
@@ -200,10 +188,10 @@ onMounted(() => {
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
+                            :href="route('examples')"
+                            :active="route().current('examples')"
                         >
-                            dashboard
+                            examples
                         </ResponsiveNavLink>
                     </div>
 

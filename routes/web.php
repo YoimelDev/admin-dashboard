@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('/examples')->middleware('auth')->group(function () {
+    Route::get('/', [ExampleController::class, 'index'])->name('examples');
+    Route::post('/', [ExampleController::class, 'store'])->name('examples.store');
+    Route::post('update', [ExampleController::class, 'update'])->name('examples.update');
+    Route::delete('/deleteSelected', [ExampleController::class, 'deleteSelected'])->name('examples.deleteSelected');
+    Route::delete('/{example}', [ExampleController::class, 'destroy'])->name('examples.destroy');
+    // Route::get('/create', [ExampleController::class, 'create'])->name('examples.create');
+    // Route::get('/{example}', [ExampleController::class, 'show'])->name('examples.show');
+    // Route::get('/{example}/edit', [ExampleController::class, 'edit'])->name('examples.edit');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
